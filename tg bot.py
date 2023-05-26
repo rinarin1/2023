@@ -17,7 +17,7 @@ w = 0
 
 @dp.message_handler(commands = ['start'])
 async def start(message: types.Message):
-    db[message.from_user.id] = {'понедельник' : 'врекарчыг', 'вторник' : '', 'среда' : '', 'четверг' : '', 'пятница' : '', 'суббота' : '', 'воскресенье' : ''}
+    db[message.from_user.id] = {'понедельник' : '', 'вторник' : '', 'среда' : '', 'четверг' : '', 'пятница' : '', 'суббота' : '', 'воскресенье' : ''}
 
 #@dp.message_handler()
 #async def p(message: types.Message):
@@ -65,58 +65,178 @@ async def start(message: types.Message):
 #        m = message.text
 #        db[message.from_user.id]['воскресенье'] = m
 
-@dp.message_handler(lambda message: message.text == 'изменить\/добавить расписание')
+@dp.message_handler(lambda message: message.text == 'изменить/добавить расписание')
 async def edit_timetable(message: types.Message):
-    w = 3
+    w = 2
     await message.answer('Выбери день недели')  
 
 @dp.message_handler(lambda message: message.text == 'расписание')
 async def timetable_output(message: types.Message):
     w = 1
     await message.answer('Выбери день недели')
-
-@dp.message_handler(lambda message: message.text == 'dp')
-async def fdp(message: types.Message):
-    await message.answer(dp)
    
 @dp.message_handler(lambda message: message.text == 'понедельник')
 async def monday(message: types.Message):
     if w == 1:
         await message.answer(db[message.from_user.id]['понедельник'])
-    if w == 3:
-        
+    if w == 2:
+        await message.answer(db[message.from_user.id]['понедельник'])
+        await message.answer('''Напиши свое расписание:
+1.
+2.
+3.
+4.
+5.
+6.
+7.
+8.
+ и тд.''')
+        w = 3
    
 @dp.message_handler(lambda message: message.text == 'вторник')
-async def monday(message: types.Message):
+async def tuesday(message: types.Message):
     if w == 1:
         await message.answer(db[message.from_user.id]['вторник'])
+    if w == 2:
+        await message.answer(db[message.from_user.id]['вторник'])
+        await message.answer('''Напиши свое расписание:
+1.
+2.
+3.
+4.
+5.
+6.
+7.
+8.
+ и тд.''')
+        w = 4
 
 @dp.message_handler(lambda message: message.text == 'среда')
-async def monday(message: types.Message):
+async def wednesday(message: types.Message):
     if w == 1:
         await message.answer(db[message.from_user.id]['среда'])
+    if w == 2:
+        await message.answer(db[message.from_user.id]['среда'])
+        await message.answer('''Напиши свое расписание:
+1.
+2.
+3.
+4.
+5.
+6.
+7.
+8.
+ и тд.''')
+        w = 5
 
 @dp.message_handler(lambda message: message.text == 'четверг')
-async def monday(message: types.Message):
+async def thursday(message: types.Message):
     if w == 1:
         await message.answer(db[message.from_user.id]['четверг'])
+    if w == 2:
+        await message.answer(db[message.from_user.id]['четверг'])
+        await message.answer('''Напиши свое расписание:
+1.
+2.
+3.
+4.
+5.
+6.
+7.
+8.
+ и тд.''')
+        w = 6
 
 @dp.message_handler(lambda message: message.text == 'пятница')
-async def monday(message: types.Message):
+async def friday(message: types.Message):
     if w == 1:
         await message.answer(db[message.from_user.id]['пятница'])
+    if w == 2:
+        await message.answer(db[message.from_user.id]['пятница'])
+        await message.answer('''Напиши свое расписание:
+1.
+2.
+3.
+4.
+5.
+6.
+7.
+8.
+ и тд.''')
+        w = 7
 
 @dp.message_handler(lambda message: message.text == 'суббота')
-async def monday(message: types.Message):
+async def saturday(message: types.Message):
     if w == 1:
         await message.answer(db[message.from_user.id]['суббота'])
+    if w == 2:
+        await message.answer(db[message.from_user.id]['суббота'])
+        await message.answer('''Напиши свое расписание:
+1.
+2.
+3.
+4.
+5.
+6.
+7.
+8.
+ и тд.''')
+        w = 8
 
 @dp.message_handler(lambda message: message.text == 'воскресенье')
-async def monday(message: types.Message):
+async def sunday(message: types.Message):
     if w == 1:
         await message.answer(db[message.from_user.id]['воскресенье'])
+    if w == 2:
+        await message.answer(db[message.from_user.id]['воскресенье'])
+        await message.answer('''Напиши свое расписание:
+1.
+2.
+3.
+4.
+5.
+6.
+7.
+8.
+ и тд.''')
+        w = 9
 
-
+@dp.message_handler(Text(startswith = '1.'))
+async def timetable(message: types.Message):
+    if w == 3:
+        m = message.text
+        db[message.from_user.id]['понедельник'] = m
+        await message.answer('Расписание на этот день добавлено/изменено.')
+    if w == 4:
+        m = message.text
+        db[message.from_user.id]['вторник'] = m
+        await message.answer('Расписание на этот день добавлено/изменено.')
+        w = 0
+    if w == 5:
+        m = message.text
+        db[message.from_user.id]['среда'] = m
+        await message.answer('Расписание на этот день добавлено/изменено.')
+        w = 0
+    if w == 6:
+        m = message.text
+        db[message.from_user.id]['четверг'] = m
+        await message.answer('Расписание на этот день добавлено/изменено.')
+        w = 0
+    if w == 7:
+         m = message.text
+        db[message.from_user.id]['пятница'] = m
+        await message.answer('Расписание на этот день добавлено/изменено.')
+        w = 0
+    if w == 8:
+        m = message.text
+        db[message.from_user.id]['суббота'] = m
+        await message.answer('Расписание на этот день добавлено/изменено.')
+        w = 0
+    if w == 9:
+        m = message.text
+        db[message.from_user.id]['воскресенье'] = m
+        await message.answer('Расписание на этот день добавлено/изменено.')
+        w = 0
 
 
 #@dp.callback_query_handler(Text(startswith = "l_"))
